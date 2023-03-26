@@ -16,6 +16,7 @@ class Sub_bills:
         self.updated_at = data['updated_at']
 
 
+
     @classmethod 
     def save(cls,data):
         query = 'INSERT INTO sub_bills (sub_bill_name, amount , main_bill_id) VALUES(%(bill_type)s,%(amount)s,, %(main_bill_id)s)'
@@ -44,3 +45,5 @@ class Sub_bills:
             flash("Amount must be greater than one.")
             is_valid = False
         return is_valid 
+
+        return result
