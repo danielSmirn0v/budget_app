@@ -57,6 +57,7 @@ class User:
             return cls(result[0])
         return False
 
+
     @classmethod
     def update(cls,data):
         query="UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s WHERE id = %(id)s;"
