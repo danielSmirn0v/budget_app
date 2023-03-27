@@ -20,7 +20,8 @@ class Main_bill:
 
     @classmethod 
     def save(cls,data):
-        query = 'INSERT INTO main_bills (bill_type, budget_main_bills_id) VALUES(%(bill_type)s, %(budget_main_bills_id)s)'
+        query = '''INSERT INTO main_bills (bill_type, budget_main_bills_id) 
+                    VALUES(%(bill_type)s, %(budget_main_bills_id)s)'''
         result = connectToMySQL(cls.db).query_db(query, data)
         print(result)
         return result
