@@ -46,4 +46,3 @@ class Sub_bills:
             is_valid = False
         return is_valid 
 
-        return result

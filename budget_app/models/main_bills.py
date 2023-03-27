@@ -30,9 +30,9 @@ class Main_bill:
         result = connectToMySQL(cls.db).query_db(query,data)
         return result
 
-    @classmethod
-    def get_all_from_id(cls,data):
-    query = """SELECT *
+    @staticmethod
+    def get_all_from_id(data):
+        query = """SELECT *
                 FROM budget
                 LEFT JOIN users
                 ON budget.user_id = users.id
@@ -41,7 +41,8 @@ class Main_bill:
                 LEFT JOIN sub_bills
                 ON sub_bills.main_bill_id = main_bills.id
                 WHERE users.id = %(id)s;"""
-        result = connectToMySQL(cls.db).query_db(query,data)
+        result = connectToMySQL('budget_app').query_db(query,data)
+        print(result)
         return result
 
     @staticmethod
