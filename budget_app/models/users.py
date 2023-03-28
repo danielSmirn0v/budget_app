@@ -21,7 +21,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.friends = []
-        self.main_bills = data['main_bills_id']
+
 
 
     @classmethod 
@@ -59,6 +59,7 @@ class User:
         if result:
             return cls(result[0])
         return False
+
 
     @classmethod
     def update(cls,data):

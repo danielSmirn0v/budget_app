@@ -28,12 +28,13 @@
                 <div class="slider-tab"></div>
             </div>
             <div class="form-inner">
-                <form action="#" class="login">
+                <form action="/create" class="login" method="POST">
+                    <input type="hidden" name='action' value="login">
                     <div class="field">
-                        <input type="text" placeholder="Email Address" required>
+                        <input type="text" placeholder="Email Address" name="email" required>
                     </div>
                     <div class="field">
-                        <input type="password" placeholder="Password" required>
+                        <input type="password" placeholder="Password" name="password" required>
                     </div>
                     <div class="field btn">
                         <div class="btn-layer"></div>
@@ -43,7 +44,8 @@
                         Not a member? <a href="">Sign up now</a>
                     </div>
                 </form>
-                <form action="create" class="signup" method= "Post">
+                <form action="/create" class="signup" method= "POST">
+                    <input type="hidden" name='action' value="register">
                     <div class="field">
                         <input type="text" placeholder="First name" name="first_name" required>
                     </div>

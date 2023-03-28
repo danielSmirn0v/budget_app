@@ -10,10 +10,10 @@
 </head>
 
 <body class="body2">
-    <p class="title2">Welcome {{USER}}!!</p>
+    <p class="title2">Welcome {{use.first_name}}!!</p>
     <a class="logout" href="/logout">Log Out</a>
     <div>
-            <a class="create1" href="/expenses/create">+ Add Group</a>
+            <a class="create1" href="/expenses/{{use.id}}/newbill">+ Add Group</a>
     </div>
     <button class="accordion title3">BILLS <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
     <div class="panel corner">

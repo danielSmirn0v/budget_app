@@ -20,6 +20,8 @@ def register_form():
 @app.route('/create', methods = ['POST'])
 def register():
 
+    if request.form['action'] == 'register':
+
         if not users.User.validate(request.form):
             return redirect('/register')
 
@@ -36,34 +38,60 @@ def register():
         user_info = users.User.save(data)
 
         session['user_info'] = user_info
-        return redirect ("/dashboard")
+        
 
 
-    # else:
+    else:
 
 
-    #     user_info = users.User.get_onewith_email ({'email': request.form['email'].lower()})
-    #     print(user_info)
-    #     if user_info:
-    #         if len(request.form['password']) < 8:
-    #             flash("Password must be at least 8 characters")
-    #             return redirect("/")
-    #         if bcrypt.check_password_hash(user_info.password, request.form['password']):
-    #             session["user_info"] = user_info.id
-    #             return redirect("/")
-    #         else:
-    #             flash("Incorrect Password")
-    #             return redirect("/register")
-    #     else:
-    #         flash("No user with this email")
-    #         return redirect("/register")
+        user_info = users.User.get_onewith_email ({'email': request.form['email'].lower()})
+        print(user_info)
+        if user_info:
+            if len(request.form['password']) < 8:
+                flash("Password must be at least 8 characters")
+                return redirect("/register")
+            if bcrypt.check_password_hash(user_info.password, request.form['password']):
+                session["user_info"] = user_info.id
+                return redirect("/dashboard")
+            else:
+                flash("Incorrect Password")
+                return redirect("/register")
+        else:
+            flash("No user with this email")
+            return redirect("/register")
+        
+    return redirect ("/dashboard")
 
 
 @app.route("/dashboard")
 def dash():
     if 'user_info' in session:
         current_user = session['user_info']
-        expense = main_bills.Main_bill.get_all_from_id(session['user_info'])
-        print(expense)
+        expense = main_bills.Main_bill.get_all_from_id({'id' : session['user_info']})
+        print(f'{expense} this is expense')
         print(session['user_info'])
-        return render_template("home.html", user = current_user, expense = expense)
+        return render_template("home.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}))
+
+@app.route('/expenses/<int:id>/newbill')
+def new_bill(id):
+    if 'user_info' not in session:
+        return redirect ('/')
+    use = users.User.get_one_by_id({'id': session['user_info']})
+    return render_template('home.html', use = use)
+    
+@app.route('/expenses/<int:id>/newbill/create')
+def create_bill(id):
+    if 'user_info' not in session:
+        return redirect ('/')
+    data = {
+        'bill_type' : request.form['bill_type'],
+        'budget_main_bills_id': request.form['figure this out']
+    }
+    new_b = main_bills.Main_bill.save(data)
+    print(f'this is the new bill{new_b}')
+    return redirect('/dashboard')
+    
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
