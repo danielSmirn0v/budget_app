@@ -21,13 +21,16 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.friends = []
-        self.main_bills = data['main_bills_id']
+
 
 
     @classmethod 
     def save(cls,data):
         query = 'INSERT INTO users (first_name, last_name, email, password) VALUES(%(first_name)s, %(last_name)s, %(email)s, %(password)s)'
         result = connectToMySQL(cls.db).query_db(query, data)
+        test = {"user_id": result}
+        query2 = 'INSERT INTO budget (user_id) VALUES(%(user_id)s)'
+        connectToMySQL(cls.db).query_db(query2, test)
         print(result)
         return result
     
@@ -88,7 +91,10 @@ class User:
             flash('Passwords do not match')
             is_valid = False
         if not EMAIL_REGEX.match(user['email']):
-            flash("User already taken")
+            flash("Please provide a Valid email")
+            is_valid = False
+        if len(result) >= 1:
+            flash("email already in use")
             is_valid = False
         return is_valid
 
@@ -104,6 +110,9 @@ class User:
             flash('Last name can not be less than 2 characters')
             is_valid = False
         if not EMAIL_REGEX.match(user['email']):
-            flash("email not available")
+            flash("Please provide a Valid email")
+            is_valid = False
+        if len(result) >= 1:
+            flash("email already in use")
             is_valid = False
         return is_valid
