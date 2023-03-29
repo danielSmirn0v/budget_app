@@ -23,6 +23,13 @@
     padding: 15px;
 }
 
+.body3{
+    display: grid;
+    height: 100%;
+    width: 100%;
+    background: -webkit-linear-gradient(left, #a0b0ac, #458eb2);
+}
+
 ::selection {
     background: #94a7ae;
     color: #fff;
@@ -45,6 +52,14 @@
     font-size: 20px;
     font-weight: 300;
     border-radius: 20px;
+}
+
+.title4 {
+    font-size: 35px;
+    font-weight: 600;
+    color: white;
+    margin-left:  30px;
+    padding-top: 20px;
 }
 
 table{
@@ -73,6 +88,66 @@ td{
 
 .corner{
     border-radius: 20px;
+}
+.box{
+    margin-left: 300px;
+}
+.form{
+    width: 40%;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.updatebutton{
+    background-color: #458eb2;
+    border-radius: 5px;
+    width: 60px;
+    height: 25px;
+    color: white;
+    border: transparent;
+    margin-left: 75px;
+    position: inherit;
+}
+
+.input{
+    border-radius: 10px;
+    height: 30px;
+}
+
+.comment{
+    border-radius: 10px;
+    background-color: #eee;
+    border: transparent;
+    margin-left: 5px;
+    margin-top: 10px;
+    padding: 5px;
+}
+.comment1{
+    float:left;
+    color: #444;
+}
+.comment2{
+    float:right;
+}
+.comment1, .comment2{
+    display: inline;
+}
+.comments{
+    border-radius: 10px;
+    background-color: #eee;
+    border: transparent;
+    margin-top: 10px;
+    padding: 5px;
+    overflow-y: scroll;
+    color: #444;
+}
+
+.button2{
+    margin-left: 5px;
+    width: 60x;
+    font-size: small;
+    color: #444;
+
 }
 
 .wrapper {
