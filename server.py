@@ -1,7 +1,7 @@
 
 from budget_app import app
 
-from budget_app.controllers import user
+from budget_app.controllers import user,sub_bills,main_bills
 
 
 
