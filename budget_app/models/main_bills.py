@@ -57,14 +57,17 @@ class Main_bill:
     
     @classmethod
     def get_Sub_bills(cls,data):
-        query = "SELECT sub_bills.*, main_bill.bill_type FROM sub_bill LEFT JOIN main_bill ON sub_bill.main_bill_id = main_bill.id WHERE main_bill_id = %(id)s"
-        values = {"id": data}
-        results = connectToMySQL(cls.db).query_db(query, values)
+        query = "SELECT sub_bills.*, main_bill.bill_type FROM sub_bills LEFT JOIN main_bill ON sub_bills.main_bill_id = main_bill.id WHERE main_bill_id = %(id)s"
+        results = connectToMySQL(cls.db).query_db(query, data)
         sub_bills_list = []
         this_main_bill = cls(results[0])
         for i in results:
-            sub_bill_id, sub_bill_name, amount, main_bill_id = i
-            sub_bill = sub_bills.Sub_billsl(sub_bill_id, sub_bill_name, amount, main_bill_id)
+            data ={
+                "id" : i ['sub_bills.id'],
+                "sub_bill_name" : i["sub_bill_name"],
+                "main_bill" :['main_bill_id']
+            }
+            sub_bill = sub_bills.Sub_bills(data)
             sub_bills_list.append(sub_bill)
         this_main_bill.sub_bills.append(sub_bills_list)
         return this_main_bill

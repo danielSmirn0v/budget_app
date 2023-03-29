@@ -37,7 +37,7 @@ def register():
 
         user_info = users.User.save(data)
 
-        budget.Budget.save({"id" : user_info})
+        # budget.Budget.save({"id" : user_info})
 
         session['user_info'] = user_info
         
@@ -70,8 +70,8 @@ def dash():
     if 'user_info' in session:
         current_user = session['user_info']
         # expense = main_bills.Main_bill.get_all_from_id({'id' : session['user_info']})
-
-        expense = budget.Budget.get_main_bills_by_budget_id({"id" :budget.Budget.get_budgets_by_user_id({'id' : session['user_info']})})
+        id =budget.Budget.get_budgets_by_user_id({'id' : session['user_info']})
+        expense = budget.Budget.get_main_bills_by_budget_id({"id" :id})
         print(f'{expense} this is expense')
         print(session['user_info'])
         # print(userBudget)
