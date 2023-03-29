@@ -13,30 +13,20 @@
     <p class="title2">Welcome {{use.first_name}}!!</p>
     <a class="logout" href="/logout">Log Out</a>
     <div>
-            <a class="create1" href="/expenses/{{use.id}}/newbill">+ Add Group</a>
+            <a class="create1" href="/expenses/newbill">+ Add Group</a>
     </div>
-    <button class="accordion title3">BILLS <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
+    {% for e in expense%}
+    <button class="accordion title3">{{e.bill_type}} <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>  ##idk if i have to readjust somehow to this not being in a table? 
     <div class="panel corner">
         <table>
+            {% for d in expense %}
+            {% if d.main_bill_id == d.bill_id%}
             <tr>
-                <td>Rent</td>
-                <td>$2000</td>
+                <td>{{d.sub_bill_name}}</td>
+                <td>${{d.amount}}</td>
             </tr>
-            <tr>
-                <td class="links">
-                    <a class="button" href="/expenses/edit/{{expense.id}}">Edit</a>
-                    <a class="button" href="/expenses/del">Delete</a>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <button class="accordion title3">FREQUENT <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
-    <div class="panel  corner">
-        <table>
-            <tr>
-                <td>Gas</td>
-                <td>$150</td>
-            </tr>
+            
+            {% endfor %}
             <tr>
                 <td class="links">
                     <a class="button" href="/expenses/edit/{{expense.id}}">Edit</a>
@@ -45,22 +35,8 @@
             </tr>
         </table>
     </div>
+    {% endfor %}
 
-    <button class="accordion title3">QUALITY OF LIFE <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
-    <div class="panel  corner">
-        <table>
-            <tr>
-                <td>Eating Out</td>
-                <td>$200</td>
-            </tr>
-            <tr>
-                <td class="links">
-                    <a class="button" href="/expenses/edit/{{expense.id}}">Edit</a>
-                    <a class="button" href="/expenses/del">Delete</a>
-                </td>
-            </tr>
-        </table>
-    </div>
     <script>
         var acc = document.getElementsByClassName("accordion");
         var i;

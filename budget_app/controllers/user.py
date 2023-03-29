@@ -8,9 +8,7 @@ from budget_app.models import users, main_bills
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+
 
 @app.route('/register')
 def register_form():
@@ -70,27 +68,47 @@ def dash():
         expense = main_bills.Main_bill.get_all_from_id({'id' : session['user_info']})
         print(f'{expense} this is expense')
         print(session['user_info'])
-        return render_template("home.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}))
+        
+        return render_template("test.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}))
 
-@app.route('/expenses/<int:id>/newbill')
-def new_bill(id):
+@app.route('/expenses/newbill') #works will just need to render to proper page
+def new_bill():
+    if 'user_info' not in session:
+        return redirect ('/')
+    use = users.User.get_one_by_id({'id': session['user_info']})#might be extra
+    return render_template('test.html', use = use)
+    
+@app.route('/expenses/newbill/create', methods = ['POST'])
+def create_bill():
+    if 'user_info' not in session:
+        return redirect ('/')
+    data = {
+        'bill_type' : request.form['bill_type'],
+        'budget_main_bills_id': session['user_info']
+    }
+    new_b = main_bills.Main_bill.save(data)
+    print(f'this is the new bill{new_b}')
+    return redirect('/dashboard')
+
+@app.route('/expenses/<int:id>/new_sub_bill') 
+def new_sub_bill(id):
     if 'user_info' not in session:
         return redirect ('/')
     use = users.User.get_one_by_id({'id': session['user_info']})
     return render_template('home.html', use = use)
     
-@app.route('/expenses/<int:id>/newbill/create')
-def create_bill(id):
+@app.route('/expenses/new_sub_bill/create', methods = ['POST'])
+def create_sub_bill():
     if 'user_info' not in session:
         return redirect ('/')
     data = {
-        'bill_type' : request.form['bill_type'],
-        'budget_main_bills_id': request.form['figure this out']
+        'sub_bill_name' : request.form['sub_bill_name'],
+        'amount' : request.form['amount'],
+        'main_bill_id': session['user_info']#firgute out 
     }
     new_b = main_bills.Main_bill.save(data)
     print(f'this is the new bill{new_b}')
     return redirect('/dashboard')
-    
 @app.route('/logout')
 def logout():
     session.clear()
