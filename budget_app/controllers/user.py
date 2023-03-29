@@ -80,7 +80,7 @@ def new_bill():
     if 'user_info' not in session:
         return redirect ('/')
     use = users.User.get_one_by_id({'id': session['user_info']})#might be extra
-    return render_template('test.html', use = use)
+    return render_template('create_main_bill.html', use = use)
     
 @app.route('/expenses/newbill/create', methods = ['POST'])
 def create_bill():
@@ -99,7 +99,7 @@ def new_sub_bill(id):
     if 'user_info' not in session:
         return redirect ('/')
     use = users.User.get_one_by_id({'id': session['user_info']})
-    return render_template('home.html', use = use)
+    return render_template('create_sub_bill.html', use = use)
     
 @app.route('/expenses/new_sub_bill/create', methods = ['POST'])
 def create_sub_bill():
@@ -113,6 +113,9 @@ def create_sub_bill():
     new_b = main_bills.Main_bill.save(data)
     print(f'this is the new bill{new_b}')
     return redirect('/dashboard')
+
+
+
 @app.route('/logout')
 def logout():
     session.clear()
