@@ -72,13 +72,8 @@ def dash():
         expense = budget.Budget.get_main_bills_by_budget_id({"id" :id})
         print(f'{expense} this is expense')
         print(session['user_info'])
-<<<<<<< HEAD
-        
-        return render_template("test.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}))
-=======
         # print(userBudget)
         return render_template("home.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}))
->>>>>>> 8013370af0b6ea649c8ed909171139d2719358d9
 
 @app.route('/expenses/newbill') #works will just need to render to proper page
 def new_bill():

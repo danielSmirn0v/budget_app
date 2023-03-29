@@ -10,10 +10,14 @@
 </head>
 
 <body class="body2">
-    <p class="title2">Welcome {{use.first_name}}!!</p>
     <a class="logout" href="/logout">Log Out</a>
+    <p class="title2">Welcome {{USER}}!!</p>
     <div>
+<<<<<<< HEAD
             <a class="create1" href="/expenses/newbill">+ Add Group</a>
+=======
+        <a class="create1" href="/expenses/create">+ Add Group</a>
+>>>>>>> 2c364970e7467a760c7e1ba2c7862863d5504408
     </div>
 <<<<<<< HEAD
     {% for e in expense%}
@@ -64,6 +68,38 @@
     </div>
     {% endfor %}
 
+<<<<<<< HEAD
+=======
+    <button class="accordion title3">QUALITY OF LIFE <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
+    <div class="panel  corner">
+        <table>
+            <tr>
+                <td>Eating Out</td>
+                <td>$200</td>
+            </tr>
+            <tr>
+                <td class="links">
+                    <a class="button" href="/expenses/edit/{{expense.id}}">Edit</a>
+                    <a class="button" href="/expenses/del">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <div class="comment1">
+            <form action="/form/submit" method="POST">
+                <textarea rows="4" cols="40" class="comment">Type your comment here.</textarea>
+                <br>
+                <input class="button2" type="submit" name="submit" value="Send">
+            </form>
+        </div>
+        <div>
+            <div class="comment2">
+                <textarea class="comments" name="comments" cols="42" rows="4"></textarea>
+            </div>
+        </div>
+    </div>
+>>>>>>> 2c364970e7467a760c7e1ba2c7862863d5504408
     <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
