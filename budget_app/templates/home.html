@@ -20,9 +20,10 @@
     <button class="accordion title3">{{i.bill_type}} <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
     <div class="panel corner">
         <table>
+            {%for j in i.sub_bills%}
             <tr>
-                <td>Rent</td>
-                <td>$2000</td>
+                <td>{{j.sub_bill_name}}</td>
+                <td>{{j.amount}}</td>
             </tr>
             <tr>
                 <td class="links">
@@ -30,6 +31,7 @@
                     <a class="button" href="/expenses/del">Delete</a>
                 </td>
             </tr>
+            {% endfor %}
         </table>
     </div>
         <!-- {% set j = j + 1  %} -->

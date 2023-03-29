@@ -25,10 +25,10 @@ class Budget:
                 "updated_at" : i['main_bills.updated_at'],
                 "budget_main_bills_id" :['budget_main_bills_id']
             }
-            # sub_bills = main_bills.Main_bill.get_Sub_bills({"id" : i["main_bills.id"]})
+            sub_bills = main_bills.Main_bill.get_Sub_bills({"id" : i["main_bills.id"]})
             main_bill = main_bills.Main_bill(data)
-            # main_bill.sub_bills.append(sub_bills)
-            main_bill_list.append(main_bill)
+            main_bill.sub_bills = sub_bills
+            # main_bill_list.append(main_bill)
             this_budget.main_bills.append(main_bill)
         # this_budget.main_bills.append(main_bill_list)
         print(this_budget)
