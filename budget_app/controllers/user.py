@@ -70,7 +70,8 @@ def dash():
     if 'user_info' in session:
         current_user = session['user_info']
         # expense = main_bills.Main_bill.get_all_from_id({'id' : session['user_info']})
-        expense = budget.Budget.get_main_bills_by_budget_id(budget.Budget.get_budgets_by_user_id({'id' : session['user_info']}))
+
+        expense = budget.Budget.get_main_bills_by_budget_id({"id" :budget.Budget.get_budgets_by_user_id({'id' : session['user_info']})})
         print(f'{expense} this is expense')
         print(session['user_info'])
         # print(userBudget)
