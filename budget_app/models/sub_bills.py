@@ -14,6 +14,7 @@ class Sub_bills:
         self.amount = data['amount']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.main_bill = data['main_bill_id']
 
 
 
@@ -45,4 +46,14 @@ class Sub_bills:
             flash("Amount must be greater than one.")
             is_valid = False
         return is_valid 
+    
+    @classmethod
+    def allSubBills(cls):
+        query = 'SELECT * FROM sub_bills'
+        results = connectToMySQL(cls.db).query_db(query)
+        all_users = []
+        for row in results:
+            all_users.append(cls(row))
+        return all_users
+
 
