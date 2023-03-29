@@ -15,8 +15,8 @@
     <div>
             <a class="create1" href="/expenses/{{use.id}}/newbill">+ Add Group</a>
     </div>
+    <!-- {%set j = 0%} -->
     {% for i in expense.main_bills %}
-    <h1>{{i}}</h1>
     <button class="accordion title3">{{i.bill_type}} <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
     <div class="panel corner">
         <table>
@@ -32,6 +32,7 @@
             </tr>
         </table>
     </div>
+        <!-- {% set j = j + 1  %} -->
     {%endfor%}
     <button class="accordion title3">bill_type <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
     <div class="panel  corner">
