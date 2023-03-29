@@ -14,6 +14,7 @@ class Sub_bills:
         self.amount = data['amount']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.main_bill = data['main_bill_id']
 
 
 

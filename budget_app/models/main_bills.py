@@ -63,3 +63,20 @@ class Main_bill:
             flash("Name must be at least 2 characters long.")
             is_valid = False
         return is_valid 
+    
+    @classmethod
+    def get_Sub_bills(cls,data):
+        query = "SELECT sub_bills.*, main_bill.bill_type FROM sub_bills LEFT JOIN main_bill ON sub_bills.main_bill_id = main_bill.id WHERE main_bill_id = %(id)s"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        sub_bills_list = []
+        this_main_bill = cls(results[0])
+        for i in results:
+            data ={
+                "id" : i ['sub_bills.id'],
+                "sub_bill_name" : i["sub_bill_name"],
+                "main_bill" :['main_bill_id']
+            }
+            sub_bill = sub_bills.Sub_bills(data)
+            sub_bills_list.append(sub_bill)
+        this_main_bill.sub_bills.append(sub_bills_list)
+        return this_main_bill
