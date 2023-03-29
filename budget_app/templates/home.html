@@ -15,16 +15,15 @@
     <div>
             <a class="create1" href="/expenses/newbill">+ Add Group</a>
     </div>
+    <!-- {%set j = 0%} -->
     {% for i in expense.main_bills %}
-    <h1>{{i}}</h1>
     <button class="accordion title3">{{i.bill_type}} <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
     <div class="panel corner">
         <table>
-            {% for d in expense %}
-            {% if d.main_bill_id == d.bill_id%}
+            {%for j in i.sub_bills%}
             <tr>
-                <td>Rent</td>
-                <td>$2000</td>
+                <td>{{j.sub_bill_name}}</td>
+                <td>{{j.amount}}</td>
             </tr>
             {%endif%}
             {%endfor%}
@@ -34,11 +33,56 @@
                     <a class="button" href="/expenses/del">Delete</a>
                 </td>
             </tr>
+            {% endfor %}
         </table>
     </div>
+        <!-- {% set j = j + 1  %} -->
     {%endfor%}
+    <button class="accordion title3">bill_type <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
+    <div class="panel  corner">
+        <table>
+            <tr>
+                <td>Gas</td>
+                <td>$150</td>
+            </tr>
+            <tr>
+                <td class="links">
+                    <a class="button" href="/expenses/edit/{{expense.id}}">Edit</a>
+                    <a class="button" href="/expenses/del">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-
+    <button class="accordion title3">QUALITY OF LIFE <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
+    <div class="panel  corner">
+        <table>
+            <tr>
+                <td>Eating Out</td>
+                <td>$200</td>
+            </tr>
+            <tr>
+                <td class="links">
+                    <a class="button" href="/expenses/edit/{{expense.id}}">Edit</a>
+                    <a class="button" href="/expenses/del">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <div class="comment1">
+            <form action="/form/submit" method="POST">
+                <textarea rows="4" cols="40" class="comment">Type your comment here.</textarea>
+                <br>
+                <input class="button2" type="submit" name="submit" value="Send">
+            </form>
+        </div>
+        <div>
+            <div class="comment2">
+                <textarea class="comments" name="comments" cols="42" rows="4"></textarea>
+            </div>
+        </div>
+    </div>
     <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
