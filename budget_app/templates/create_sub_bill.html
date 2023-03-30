@@ -12,22 +12,22 @@
 <body class="body3">
     <div class="flex-container">
         <div>
-            <a class="logout" href="/expenses/home?">Back to Home</a>
+            <a class="logout" href="/dashboard">Back to Home</a>
             <a class="logout" href="/logout">Log Out</a>
         </div>
-        <h1 class="title4">Add New Expense</h1>
+        <h1 class="title4">Add New sub_bill </h1>
     </div>
-    <form method="post" class="box">
+    <form action="/expenses/new_sub_bill/create" method="POST" class="box">
+        <input type="hidden" name="main_bill_id" value="{{main[0].id}}">
         <div>
             <div class="form">
                 <label>Expense:</label>
-                <input type="text" name="expense?" class="input" id="expense?">
+                <input type="text" name="sub_bill_name" class="input" id="sub_bill_name">
             </div>
             <div class="form">
                 <label>Amount:</label>
                 <input type="number" name="amount" class="input" id="amount">
             </div>
-            <input type="hidden" name="id" value="{{expense.id?}}">
             <div>
                 <input class="updatebutton" type="submit" class="btn-primary" value="Add">
             </div>

@@ -3,16 +3,16 @@ from budget_app import app
 
 from flask import Flask, render_template, request, redirect, session, flash
 
-from budget_app.models import users, main_bills ,budget, comment
+
+from budget_app.models import users, main_bills ,budget, comment,sub_bills
+
 
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
-@app.route('/')
-def home():
-    return render_template('index.html')
 
-@app.route('/register')
+
+@app.route('/')
 def register_form():
 
     return render_template('index.html')
@@ -23,7 +23,7 @@ def register():
     if request.form['action'] == 'register':
 
         if not users.User.validate(request.form):
-            return redirect('/register')
+            return redirect('/')
 
         pw_hash = bcrypt.generate_password_hash(request.form["password"])
 
@@ -50,17 +50,17 @@ def register():
         print(user_info)
         if user_info:
             if len(request.form['password']) < 8:
-                flash("Password must be at least 8 characters")
-                return redirect("/register")
+                flash("Incorrect password")
+                return redirect("/")
             if bcrypt.check_password_hash(user_info.password, request.form['password']):
                 session["user_info"] = user_info.id
                 return redirect("/dashboard")
             else:
                 flash("Incorrect Password")
-                return redirect("/register")
+                return redirect("/")
         else:
             flash("No user with this email")
-            return redirect("/register")
+            return redirect("/")
         
     return redirect ("/dashboard")
 
@@ -75,25 +75,9 @@ def dash():
         all_comments = comment.Comment.get_all()
         return render_template("home.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}), comments = all_comments)
 
-@app.route('/expenses/<int:id>/newbill')
-def new_bill(id):
-    if 'user_info' not in session:
-        return redirect ('/')
-    use = users.User.get_one_by_id({'id': session['user_info']})
-    return render_template('home.html', use = use)
-    
-@app.route('/expenses/<int:id>/newbill/create')
-def create_bill(id):
-    if 'user_info' not in session:
-        return redirect ('/')
-    data = {
-        'bill_type' : request.form['bill_type'],
-        'budget_main_bills_id': request.form['figure this out']
-    }
-    new_b = main_bills.Main_bill.save(data)
-    print(f'this is the new bill{new_b}')
-    return redirect('/dashboard')
-    
+
+
+
 @app.route('/logout')
 def logout():
     session.clear()

@@ -25,7 +25,12 @@ class Main_bill:
         result = connectToMySQL(cls.db).query_db(query, data)
         print(result)
         return result
-
+    @classmethod 
+    def get_bill_by_id(cls,data):
+        query = 'SELECT * FROM main_bills WHERE main_bills.id = %(id)s'
+        result = connectToMySQL(cls.db).query_db(query, data)
+        print(result)
+        return result
     @classmethod
     def get_all_from_id(cls,data):
         query = """SELECT *
@@ -38,6 +43,10 @@ class Main_bill:
                     ON sub_bills.main_bill_id = main_bills.id
                     WHERE users.id = %(id)s;"""
         result = connectToMySQL(cls.db).query_db(query,data)
+        bill_id=[]
+        for d in result:
+            bill_id.append(d['main_bills.id'])##this parses through results and gets all the main_bills.id and appends to the bill_id list which is called in flask for the conditoinal
+        print(f'==== {bill_id}')
         return result
 
 
@@ -59,6 +68,8 @@ class Main_bill:
     def get_Sub_bills(cls,data):
         query = "SELECT sub_bills.*, main_bills.* FROM sub_bills LEFT JOIN main_bills ON sub_bills.main_bill_id = main_bills.id WHERE main_bills.id = %(id)s"
         results = connectToMySQL(cls.db).query_db(query, data)
+        if not results:
+            return []
         print(results)
         this_main_bill = cls(results[0])
         for i in results:
@@ -71,5 +82,6 @@ class Main_bill:
                 "main_bill_id" :['main_bill_id']
             }
             sub_bill = sub_bills.Sub_bills(data)
+            
             this_main_bill.sub_bills.append(sub_bill)
         return this_main_bill.sub_bills

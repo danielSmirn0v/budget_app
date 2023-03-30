@@ -14,13 +14,13 @@ class Sub_bills:
         self.amount = data['amount']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.main_bill = data['main_bill_id']
+        self.main_bill_id = data['main_bill_id']
 
 
 
     @classmethod 
     def save(cls,data):
-        query = 'INSERT INTO sub_bills (sub_bill_name, amount , main_bill_id) VALUES(%(bill_type)s,%(amount)s,, %(main_bill_id)s)'
+        query = 'INSERT INTO sub_bills (sub_bill_name, amount , main_bill_id) VALUES(%(sub_bill_name)s,%(amount)s, %(main_bill_id)s)'
         result = connectToMySQL(cls.db).query_db(query, data)
         print(result)
         return result
@@ -32,7 +32,7 @@ class Sub_bills:
 
     @classmethod
     def delete_sub_bill(cls, data):
-        query = 'DELETE FROM sub_bills WHERE id = %(id)s'
+        query = 'DELETE FROM sub_bills WHERE sub_bills.id = %(id)s'
         results = connectToMySQL(cls.db).query_db( query, data )
         return results
     

@@ -10,28 +10,30 @@
 </head>
 
 <body class="body2">
+    <p class="title2">Welcome {{use.first_name}}!!</p>
     <a class="logout" href="/logout">Log Out</a>
-    <p class="title2">Welcome {{USER}}!!</p>
     <div>
-        <a class="create1" href="/expenses/create">+ Add Group</a>
+            <a class="create1" href="/expenses/newbill">+ Add Group</a>
     </div>
     <!-- {%set j = 0%} -->
+    
     {% for i in expense.main_bills %}
-    <button class="accordion title3">{{i.bill_type}} <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
+    <button class="accordion title3">{{i.bill_type}} <a class="create2" href="/expenses/{{i.id}}/new_sub_bill"> Add Subgroup</a></button>
     <div class="panel corner">
         <table>
             {%for j in i.sub_bills%}
             <tr>
                 <td>{{j.sub_bill_name}}</td>
                 <td>{{j.amount}}</td>
-            </tr>
-            <tr>
                 <td class="links">
                     <a class="button" href="/expenses/edit/{{i.id}}">Edit</a>
-                    <a class="button" href="/expenses/del">Delete</a>
+                    <a class="button" href="/expenses/{{j.id}}/sub_bill_delete">Delete</a>
                 </td>
+                <td>{{j.id}}</td>
             </tr>
-            {% endfor %}
+            
+            {%endfor%}
+            
         </table>
         <div class="comment1">
             <form action="/form/submit" method="POST">
@@ -56,37 +58,7 @@
     </div>
         <!-- {% set j = j + 1  %} -->
     {%endfor%}
-    <button class="accordion title3">bill_type <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
-    <div class="panel  corner">
-        <table>
-            <tr>
-                <td>Gas</td>
-                <td>$150</td>
-            </tr>
-            <tr>
-                <td class="links">
-                    <a class="button" href="/expenses/edit/{{expense.id}}">Edit</a>
-                    <a class="button" href="/expenses/del">Delete</a>
-                </td>
-            </tr>
-        </table>
-    </div>
 
-    <button class="accordion title3">QUALITY OF LIFE <a class="create2" href="/addsubgroup"> Add Subgroup</a></button>
-    <div class="panel  corner">
-        <table>
-            <tr>
-                <td>Eating Out</td>
-                <td>$200</td>
-            </tr>
-            <tr>
-                <td class="links">
-                    <a class="button" href="/expenses/edit/{{expense.id}}">Edit</a>
-                    <a class="button" href="/expenses/del">Delete</a>
-                </td>
-            </tr>
-        </table>
-    </div>
     <div>
     <script>
         var acc = document.getElementsByClassName("accordion");

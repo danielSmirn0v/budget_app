@@ -27,7 +27,8 @@ class Budget:
             }
             sub_bills = main_bills.Main_bill.get_Sub_bills({"id" : i["main_bills.id"]})
             main_bill = main_bills.Main_bill(data)
-            main_bill.sub_bills = sub_bills
+            if sub_bills:
+                main_bill.sub_bills = sub_bills
             # main_bill_list.append(main_bill)
             this_budget.main_bills.append(main_bill)
         # this_budget.main_bills.append(main_bill_list)
