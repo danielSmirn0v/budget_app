@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, session, flash
 
 from budget_app.models import users, main_bills ,budget, comment
 
-@app.route("/form/submit", methods = ['post'])
+@app.route("/form/submit", methods = ['POST'])
 def postComment():
     data = {
         "comment":  request.form['comments'],
