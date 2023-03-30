@@ -35,7 +35,6 @@
                     <a class="button" href="/expenses/{{j.id}}/sub_bill_delete">Delete</a>
                 </td>
             </tr>
-            
             {%endfor%}
             
         </table>
@@ -46,10 +45,10 @@
                 <input class="button2" type="submit" name="submit" value="Send">
                 <input type="hidden" value = {{i.id}} name = "main_bill_id">
             </form>
-
+            {%endfor%}
         </div>
         <!-- {%set j = 0%} -->
-    <div class="mainrow">
+    <!-- <div class="mainrow">
         {% for i in expense.main_bills %}
         <div class="accsub">
             <div>
@@ -95,9 +94,9 @@
                 </div>
             </div>
         </div>
-    </div>
-            <!-- {% set j = j + 1  %} -->
         {%endfor%}
+    </div> -->
+            <!-- {% set j = j + 1  %} -->
 
         <div>
         <script>
