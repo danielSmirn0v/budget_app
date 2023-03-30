@@ -35,24 +35,31 @@
             {%endfor%}
             
         </table>
+        <div class="comment1">
+            <form action="/form/submit" method="POST">
+                <textarea rows="4" cols="40" class="comment" name ="comments" placeholder="Type your comment here."></textarea>
+                <br>
+                <input class="button2" type="submit" name="submit" value="Send">
+                <input type="hidden" value = {{i.id}} name = "main_bill_id">
+            </form>
+        </div>
+        <div>
+            <div class="comment2">
+                <textarea class="comments" name="comments" cols="42" rows="4">
+                {%for c in comments%}
+                    {% if c.main_bill_id == i .id%}
+                    {{c.creator}} Said {{c.comment}}
+                    {%endif%}
+                {%endfor%}
+                </textarea>
+            </div>
+        </div>
+    </div>
     </div>
         <!-- {% set j = j + 1  %} -->
     {%endfor%}
 
     <div>
-        <div class="comment1">
-            <form action="/form/submit" method="POST">
-                <textarea rows="4" cols="40" class="comment">Type your comment here.</textarea>
-                <br>
-                <input class="button2" type="submit" name="submit" value="Send">
-            </form>
-        </div>
-        <div>
-            <div class="comment2">
-                <textarea class="comments" name="comments" cols="42" rows="4"></textarea>
-            </div>
-        </div>
-    </div>
     <script>
         var acc = document.getElementsByClassName("accordion");
         var i;

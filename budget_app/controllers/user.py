@@ -3,7 +3,9 @@ from budget_app import app
 
 from flask import Flask, render_template, request, redirect, session, flash
 
-from budget_app.models import users, main_bills ,budget, sub_bills
+
+from budget_app.models import users, main_bills ,budget, comment,sub_bills
+
 
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
@@ -70,10 +72,8 @@ def dash():
         # expense = main_bills.Main_bill.get_all_from_id({'id' : session['user_info']})
         id =budget.Budget.get_budgets_by_user_id({'id' : session['user_info']})
         expense = budget.Budget.get_main_bills_by_budget_id({"id" :id})
-        print(f'{expense} this is expense')
-        print(session['user_info'])
-        # print(userBudget)
-        return render_template("home.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}))
+        all_comments = comment.Comment.get_all()
+        return render_template("home.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}), comments = all_comments)
 
 
 
