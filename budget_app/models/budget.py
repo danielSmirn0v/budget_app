@@ -39,6 +39,7 @@ class Budget:
     def get_budgets_by_user_id(cls ,data):
         query = "SELECT * FROM budget WHERE user_id = %(id)s"
         results = connectToMySQL(cls.db).query_db(query, data)
+        print(results)
         for i in results:
             print(i)
             id_to_return = i['id']

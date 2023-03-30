@@ -17,9 +17,10 @@ def new_bill():
 def create_bill():
     if 'user_info' not in session:
         return redirect ('/')
+    id =budget.Budget.get_budgets_by_user_id({"id":session['user_info']})
     data = {
         'bill_type' : request.form['bill_type'],
-        'budget_main_bills_id': session['user_info']
+        'budget_main_bills_id': id
     }
     new_b = main_bills.Main_bill.save(data)
     print(f'this is the new bill{new_b}')
