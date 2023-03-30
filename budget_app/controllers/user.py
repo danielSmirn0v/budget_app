@@ -75,8 +75,35 @@ def dash():
         all_comments = comment.Comment.get_all()
         return render_template("home.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}), comments = all_comments)
 
+@app.route('/user/<int:id>/update')
+def update_user_page(id):
+
+    if 'user_info' not in session:
+        return redirect('/')
+    print('asiduahidhiodhwodwodwodnoq')
+
+    return render_template('edit.html', user = users.User.get_one_by_id({'id': session['user_info']}))
 
 
+@app.route('/user/<int:id>/info/update', methods = ['POST']) 
+def update_user(id):
+
+    print('this is wokring')
+    if 'user_info' not in session:
+        return redirect('/')
+
+
+    data={
+            "id":id,
+            "email":request.form["email"],
+            "first_name":request.form["first_name"],
+            "last_name":request.form["last_name"],
+
+    }
+
+    users.User.update(data)
+    print(f'ththth {data}')
+    return redirect('/dashboard')
 
 @app.route('/logout')
 def logout():

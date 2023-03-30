@@ -109,9 +109,6 @@ class User:
         if len(user['last_name']) < 2 :
             flash('Last name can not be less than 2 characters')
             is_valid = False
-        if not EMAIL_REGEX.match(user['email']):
-            flash("Please provide a Valid email")
-            is_valid = False
         if len(result) >= 1:
             flash("email already in use")
             is_valid = False

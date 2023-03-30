@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
@@ -12,10 +12,11 @@
 <body class="body2">
     <p class="title2">Welcome {{use.first_name}}!!</p>
     <a class="logout" href="/logout">Log Out</a>
+    <a class="logout" href="/user/{{use.id}}/update">update your info</a>
     <div>
             <a class="create1" href="/expenses/newbill">+ Add Group</a>
     </div>
-    <!-- {%set j = 0%} -->
+
     
     {% for i in expense.main_bills %}
     <button class="accordion title3">{{i.bill_type}} <a class="create2" href="/expenses/{{i.id}}/new_sub_bill"> Add Subgroup</a></button>
@@ -55,7 +56,7 @@
         </div>
     </div>
     </div>
-        <!-- {% set j = j + 1  %} -->
+
     {%endfor%}
 
     <div>
