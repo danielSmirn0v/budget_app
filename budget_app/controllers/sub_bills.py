@@ -34,3 +34,8 @@ def delete_subbill(id):
         return redirect ('/')
     sub_bills.Sub_bills.delete_sub_bill({'id':id})
     return redirect('/dashboard')
+
+@app.route("/expenses/edit/<int:id>")
+def updateSubBill(id):
+    sub_bill = sub_bills.Sub_bills.getById({"id":id})
+    return render_template("edit_sub_bill.html", sub_bill = sub_bill)

@@ -55,5 +55,15 @@ class Sub_bills:
         for row in results:
             all_users.append(cls(row))
         return all_users
+    
+    @classmethod
+    def getById(cls, data):
+        query = 'SELECT * FROM sub_bills WHERE id = %(id)s'
+        result  = connectToMySQL(cls.db).query_db(query,data)
+        print(result)
+        if result:
+            return cls(result[0])
+        return False
+        
 
 
