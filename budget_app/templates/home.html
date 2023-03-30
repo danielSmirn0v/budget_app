@@ -8,78 +8,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
-<body class="body2">
-    <p class="title2">Welcome {{use.first_name}}!!</p>
+<div class="byebye">
     <a class="logout" href="/logout">Log Out</a>
-    <div>
-            <a class="create1" href="/expenses/newbill">+ Add Group</a>
-    </div>
-    <!-- {%set j = 0%} -->
-    
-    {% for i in expense.main_bills %}
-    <button class="accordion title3">{{i.bill_type}} <a class="create2" href="/expenses/{{i.id}}/new_sub_bill"> Add Subgroup</a></button>
-    <div class="panel corner">
-        <table>
-            {%for j in i.sub_bills%}
-            <tr>
-                <td>{{j.sub_bill_name}}</td>
-                <td>{{j.amount}}</td>
-                <td class="links">
-                    <a class="button" href="/expenses/edit/{{i.id}}">Edit</a>
-                    <a class="button" href="/expenses/{{j.id}}/sub_bill_delete">Delete</a>
-                </td>
-                <td>{{j.id}}</td>
-            </tr>
-            
-            {%endfor%}
-            
-        </table>
-        <div class="comment1">
-            <form action="/form/submit" method="POST">
-                <textarea rows="4" cols="40" class="comment" name ="comments" placeholder="Type your comment here."></textarea>
-                <br>
-                <input class="button2" type="submit" name="submit" value="Send">
-                <input type="hidden" value = {{i.id}} name = "main_bill_id">
-            </form>
+</div>
+<div class="maincontainer">
+    <body class="body2">
+        <div class="hello">
+            <p class="title2">Welcome {{use.first_name}}!!</p>
         </div>
-        <div>
-            <div class="comment2">
-                <textarea class="comments" name="comments" cols="42" rows="4">
-                {%for c in comments%}
-                    {% if c.main_bill_id == i .id%}
-                    {{c.creator}} Said {{c.comment}}
-                    {%endif%}
-                {%endfor%}
-                </textarea>
+        <!-- {%set j = 0%} -->
+    <div class="mainrow">
+        {% for i in expense.main_bills %}
+        <div class="accsub">
+            <div>
+                <a class="create1" href="/expenses/newbill"> + Group</a>
+            </div>
+            <button class="accordion title3">{{i.bill_type}} <a class="create2" href="/expenses/{{i.id}}/new_sub_bill"> + SubGroup </a></button>
+            <div class="subbox">
+                <table class="table">
+                    {%for j in i.sub_bills%}
+                    <tr>
+                        <td>{{j.sub_bill_name}}</td>
+                        <td class="dash"> --------------------------- </td>
+                        <td>$ {{j.amount}}</td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <a class="button" href="/expenses/edit/{{i.id}}">Edit</a>
+                        <a class="button" href="/expenses/{{j.id}}/sub_bill_delete">Delete</a>
+                    </td>
+                    </tr>
+                    {%endfor%}
+                </table>
+            </div>
+        </div>
+        <div class="combox">
+            <div class="comment1">
+                <form action="/form/submit" method="POST">
+                    <textarea rows="3" cols="40" class="comment" name ="comments" placeholder="Leave A Comment !"></textarea>
+                    <br>
+                    <input class="button2" type="submit" name="submit" value="Send">
+                    <input type="hidden" value = {{i.id}} name = "main_bill_id">
+                </form>
+            </div>
+            <div>
+                <div class="comment2">
+                    <textarea class="comments" name="comments" cols="40" rows="4">
+                    {%for c in comments%}
+                        {% if c.main_bill_id == i .id%}
+                        {{c.creator}} Said {{c.comment}}
+                        {%endif%}
+                    {%endfor%}
+                    </textarea>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-        <!-- {% set j = j + 1  %} -->
-    {%endfor%}
+            <!-- {% set j = j + 1  %} -->
+        {%endfor%}
 
-    <div>
-    <script>
-        var acc = document.getElementsByClassName("accordion");
-        var i;
+        <div>
+        <script>
+            var acc = document.getElementsByClassName("accordion");
+            var i;
 
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function () {
-                /* Toggle between adding and removing the "active" class,
-                to highlight the button that controls the panel */
-                this.classList.toggle("active");
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function () {
+                    /* Toggle between adding and removing the "active" class,
+                    to highlight the button that controls the panel */
+                    this.classList.toggle("active");
 
-                /* Toggle between hiding and showing the active panel */
-                var panel = this.nextElementSibling;
-                if (panel.style.display === "block") {
-                    panel.style.display = "none";
-                } else {
-                    panel.style.display = "block";
-                }
-            });
-        }
-    </script>
-</body>
-
+                    /* Toggle between hiding and showing the active panel */
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === "block") {
+                        panel.style.display = "none";
+                    } else {
+                        panel.style.display = "block";
+                    }
+                });
+            }
+        </script>
+    </body>
+</div>
 </html>
