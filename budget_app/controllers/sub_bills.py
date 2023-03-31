@@ -42,6 +42,8 @@ def updateSubBill(id):
 
     return render_template("edit_sub_bill.html", sub_bill = sub_bill)
 
+
+
 @app.route("/expenses/edit/<int:id>/sub" ,methods = ['POST'])
 def updatesubBill(id):
 #firgure out validation on all things that need it lol

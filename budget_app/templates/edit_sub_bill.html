@@ -16,31 +16,31 @@
             <a class="logout" href="/logout">Log Out</a>
         </div>
         <h1 class="title4">Edit {{sub_bill.sub_bill_name}}</h1>
-    <div class=" text-center ">
-    {% with messages = get_flashed_messages() %}     
-        {% if messages %}                            
-            {% for message in messages %}            
-                <p>{{message}}</p>                   
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="error"></ul>
+            {% for message in messages %}
+            <li class="error">{{message}}</li>
             {% endfor %}
         {% endif %}
     {% endwith %}
     </div>
-
-    <form action="/expenses/edit/{{sub_bill.id}}/sub" method="POST" class="box">
-        <input type="hidden" name="main_bill_id" value="{{sub_bill.main_bill_id}}">
+    <form action="/user/{{user.id}}/info/update" method="POST" class="box">
         <div>
             <div class="form">
-                <label>Expense:</label>
-                <input type="text" name="sub_bill_name" class="input" id="sub_bill_name" value="{{sub_bill.sub_bill_name}}">
+                <label for="email">email:</label>
+                <input type="text" name="email" class="input" id="email" value="{{user.email}}">
             </div>
             <div class="form">
-                <label>Amount:</label>
-                <input type="number" name="amount" class="input" id="amount" value ={{sub_bill.amount}}>
-            </div>
-            <div>
-                <input class="updatebutton" type="submit" class="btn-primary" value="update">
+                <label for="first_name">First name:</label>
+                <input type="text" name="first_name" class="input" id="first_name" value="{{user.first_name}}">
+            </div>          
+            <div class="form">
+                <label for="last_name">Last name:</label>
+                <input type="text" name="last_name" class="input" id="last_name" value="{{user.last_name}}">
             </div>
         </div>
+        <input class="updatebutton" type="submit" class="btn-primary" value="Update">
     </form>
 </body>
 
