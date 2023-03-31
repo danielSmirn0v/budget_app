@@ -25,3 +25,13 @@ def create_bill():
     new_b = main_bills.Main_bill.save(data)
     print(f'this is the new bill{new_b}')
     return redirect('/dashboard')
+
+@app.route('/expenses/<int:id>/bill')
+def delete_playlist(id):
+
+    if 'user_info' not in session:
+        return redirect('/')
+    print('delete in process')
+    main_bills.Main_bill.delete_main_bill({'id': id})
+
+    return redirect(f"/dashboard")

@@ -6,16 +6,6 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-.maincontainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.byebye {
-    float: right;
-}
 
 .body1 {
     display: grid;
@@ -44,9 +34,6 @@
     background: #94a7ae;
     color: #fff;
 }
-.nav {
-    justify-content: space-between;
-}
 
 .title1 {
     font-size: 35px;
@@ -59,7 +46,6 @@
     font-size: 35px;
     font-weight: 600;
     color: white;
-    margin-bottom: 50px;
 }
 
 .title3{
@@ -76,46 +62,23 @@
     padding-top: 20px;
 }
 
-.mainrow {
-    display: flex;
-    flex-direction: row;
-}
-
-.accsub {
-    display: flex;
-    flex-direction: column;
-    margin-right: 50px;
-}
-
-.subbox {
-    padding:20px 20px 20px 40px;
-    background-color:white;
+table{
     overflow: hidden;
-    width: 700px;
-    border-radius: 20px;
 }
-
-.table{
-    font-size: x-large;
-    font-weight: bolder;
-}
-
-.dash {
-    color: transparent;
+td{
+    width:500px;
+    padding-left: 20px;
 }
 
 .create1{
     padding-left: 10px;
     color: rgb(70, 95, 81);
     text-decoration: none;
-    font-size: large;
-    font-weight: bolder;
 }
 .create2{
-    font-size: normal;
+    font-size: small;
     color: rgb(144, 170, 191);
     overflow:hidden;
-    float: right;
 }
 
 .button{
@@ -123,10 +86,12 @@
     color: #458eb2;
 }
 
+.corner{
+    border-radius: 20px;
+}
 .box{
     margin-left: 300px;
 }
-
 .form{
     width: 40%;
     margin-bottom: 10px;
@@ -149,12 +114,6 @@
     height: 30px;
 }
 
-.combox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: end;
-}
 .comment{
     border-radius: 10px;
     background-color: #eee;
@@ -164,7 +123,7 @@
     padding: 5px;
 }
 .comment1{
-    float: left;
+    float:left;
     color: #444;
 }
 .comment2{
@@ -177,6 +136,7 @@
     border-radius: 10px;
     background-color: #eee;
     border: transparent;
+    margin-top: 10px;
     padding: 5px;
     overflow-y: scroll;
     color: #444;
@@ -187,7 +147,7 @@
     width: 60x;
     font-size: small;
     color: #444;
-    display: none;
+
 }
 
 .wrapper {
@@ -389,9 +349,8 @@ form .btn input[type="submit"] {
     color: #444;
     cursor: pointer;
     padding: 18px;
-    width: 700px;
+    width: 100%;
     text-align: left;
-    justify-content: space-between;
     border: none;
     outline: none;
     transition: 0.4s;
@@ -405,26 +364,32 @@ form .btn input[type="submit"] {
     background-color: #ccc;
 }
 
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    padding: 0 18px;
+    background-color: rgb(255, 255, 255);
+    display: none;
+    overflow: hidden;
+}
 
 .accordion:after {
     content: '\02795';
     /* Unicode character for "plus" sign (+) */
     font-size: 13px;
     color: #777;
-    float: left;
-    margin: 5px;
+    float: right;
+    margin-left: 5px;
 }
 
 .active:after {
     content: "\2796";
     /* Unicode character for "minus" sign (-) */
 }
-
 a.logout{
-    margin: 0px auto 0px auto;
-    padding:5px;
-    font-size:20px;
+    text-align: right;
+    float: right;
+    padding-right: 10px;
+    padding-bottom: 10px;
     color: white;
-    background-color: red;
-    font-weight: bolder;
+    text-decoration: none;
 }

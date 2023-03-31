@@ -34,3 +34,23 @@ def delete_subbill(id):
         return redirect ('/')
     sub_bills.Sub_bills.delete_sub_bill({'id':id})
     return redirect('/dashboard')
+
+
+@app.route("/expenses/<int:id>/sub/edit")
+def updateSubBill(id):
+    sub_bill = sub_bills.Sub_bills.getById({"id":id})
+
+    return render_template("edit_sub_bill.html", sub_bill = sub_bill)
+
+@app.route("/expenses/edit/<int:id>/sub" ,methods = ['POST'])
+def updatesubBill(id):
+#firgure out validation on all things that need it lol
+    data = {
+        'id' : id,
+        'sub_bill_name' : request.form['sub_bill_name'],
+        'amount' : request.form['amount'],
+        'main_bill_id' : request.form['main_bill_id']
+    }
+    sub_bills.Sub_bills.update_sub_bill(data)
+
+    return redirect('/dashboard')

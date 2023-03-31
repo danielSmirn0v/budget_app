@@ -85,3 +85,16 @@ class Main_bill:
             
             this_main_bill.sub_bills.append(sub_bill)
         return this_main_bill.sub_bills
+
+    @classmethod
+    def delete_main_bill(cls,data):
+        print('about to run delete query')
+        sub_bill_query = 'DELETE FROM sub_bills WHERE main_bill_id = %(id)s'
+        result  = connectToMySQL(cls.db).query_db(sub_bill_query,data)
+        comment_bill = 'DELETE FROM user_bill_has_comment WHERE main_bill_id = %(id)s'
+        comment_result  = connectToMySQL(cls.db).query_db(comment_bill,data)
+        main_bill_query = 'DELETE FROM main_bills WHERE id = %(id)s'
+        main_result  = connectToMySQL(cls.db).query_db(main_bill_query,data)
+        print('ran delete')
+        print(result)
+        return main_result
