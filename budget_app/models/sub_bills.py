@@ -27,8 +27,20 @@ class Sub_bills:
     
     @classmethod
     def update_sub_bill (cls, data):
+        print('=========')
         query = "UPDATE sub_bills SET sub_bill_name = %(sub_bill_name)s, amount = %(amount)s WHERE id = %(id)s"
-        connectToMySQL(cls.db).query_db(query, data)
+        result = connectToMySQL(cls.db).query_db(query, data)
+        print(f'============{result}')
+        return result
+
+    @classmethod
+    def getById(cls, data):
+        query = 'SELECT * FROM sub_bills WHERE id = %(id)s'
+        result  = connectToMySQL(cls.db).query_db(query,data)
+        print(result)
+        if result:
+            return cls(result[0])
+        return False
 
     @classmethod
     def delete_sub_bill(cls, data):

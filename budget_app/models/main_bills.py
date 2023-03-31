@@ -91,6 +91,8 @@ class Main_bill:
         print('about to run delete query')
         sub_bill_query = 'DELETE FROM sub_bills WHERE main_bill_id = %(id)s'
         result  = connectToMySQL(cls.db).query_db(sub_bill_query,data)
+        comment_bill = 'DELETE FROM user_bill_has_comment WHERE main_bill_id = %(id)s'
+        comment_result  = connectToMySQL(cls.db).query_db(comment_bill,data)
         main_bill_query = 'DELETE FROM main_bills WHERE id = %(id)s'
         main_result  = connectToMySQL(cls.db).query_db(main_bill_query,data)
         print('ran delete')

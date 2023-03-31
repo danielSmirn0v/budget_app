@@ -92,6 +92,8 @@ def update_user(id):
     if 'user_info' not in session:
         return redirect('/')
 
+    if users.User.validate_update_user(request.form):
+        return redirect(f'/user/{id}/update')
 
     data={
             "id":id,
@@ -104,6 +106,8 @@ def update_user(id):
     users.User.update(data)
     print(f'ththth {data}')
     return redirect('/dashboard')
+
+
 
 @app.route('/logout')
 def logout():

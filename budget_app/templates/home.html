@@ -10,7 +10,7 @@
 </head>
 
 <body class="body2">
-    <p class="title2">Welcome {{use.first_name}}!!</p>
+    <p class="title2">Welcome {{use.first_name}} Lets Budget!!</p>
     <a class="logout" href="/logout">Log Out</a>
     <a class="logout" href="/user/{{use.id}}/update">update your info</a>
     <div>
@@ -19,7 +19,8 @@
 
     
     {% for i in expense.main_bills %}
-    <button class="accordion title3">{{i.bill_type}} <a class="create2" href="/expenses/{{i.id}}/new_sub_bill"> Add Subgroup</a></button>
+    <button class="accordion title3">{{i.bill_type}} <a class="create2" href="/expenses/{{i.id}}/new_sub_bill"> Add Subgroup</a>
+        <a class="create2"href="/expenses/{{i.id}}/bill">Delete bill</a> </button>
     <div class="panel corner">
         <table>
             {%for j in i.sub_bills%}
@@ -27,7 +28,7 @@
                 <td>{{j.sub_bill_name}}</td>
                 <td>{{j.amount}}</td>
                 <td class="links">
-                    <a class="button" href="/expenses/edit/{{i.id}}">Edit</a>
+                    <a class="button" href="/expenses/{{j.id}}/sub/edit">Edit</a>
                     <a class="button" href="/expenses/{{j.id}}/sub_bill_delete">Delete</a>
                 </td>
             </tr>

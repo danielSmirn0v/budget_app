@@ -97,19 +97,17 @@ class User:
             flash("email already in use")
             is_valid = False
         return is_valid
-
+        
     @staticmethod
     def validate_update_user(user):
         is_valid = True
-        query = 'SELECT * FROM users WHERE email = %(email)s'
-        result  = connectToMySQL(User.db).query_db(query,user)
-        if len(user['first_name']) < 2 :
-            flash('First name can not be less than 2 characters')
+        if len(user['first_name']) < 2:
+            flash('First name must be at least 2 characters')
             is_valid = False
-        if len(user['last_name']) < 2 :
-            flash('Last name can not be less than 2 characters')
+        if len(user['last_name']) < 2:
+            flash('Last name must be at least 2 characters')
             is_valid = False
-        if len(result) >= 1:
-            flash("email already in use")
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", user['email']):
+            flash('Invalid email address')
             is_valid = False
         return is_valid
