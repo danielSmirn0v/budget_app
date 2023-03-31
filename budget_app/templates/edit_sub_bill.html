@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>Edit {{sub_bill.sub_bill_name}}</title>
 </head>
 
@@ -25,21 +25,22 @@
         {% endif %}
     {% endwith %}
     </div>
-    <form method="post" class="box">
-        <input type="hidden" name="main_bill_id" value="{{sub_bill.main_bill_id}}">
+    <form action="/user/{{user.id}}/info/update" method="POST" class="box">
         <div>
             <div class="form">
-                <label>Expense:</label>
-                <input type="text" name="sub_bill_name" class="input" id="sub_bill_name" value="{{sub_bill.sub_bill_name}}">
+                <label for="email">email:</label>
+                <input type="text" name="email" class="input" id="email" value="{{user.email}}">
             </div>
             <div class="form">
-                <label>Amount:</label>
-                <input type="number" name="amount" class="input" id="amount" value ={{sub_bill.amount}}>
-            </div>
-            <div>
-                <input class="updatebutton" type="submit" class="btn-primary" value="Add">
+                <label for="first_name">First name:</label>
+                <input type="text" name="first_name" class="input" id="first_name" value="{{user.first_name}}">
+            </div>          
+            <div class="form">
+                <label for="last_name">Last name:</label>
+                <input type="text" name="last_name" class="input" id="last_name" value="{{user.last_name}}">
             </div>
         </div>
+        <input class="updatebutton" type="submit" class="btn-primary" value="Update">
     </form>
 </body>
 

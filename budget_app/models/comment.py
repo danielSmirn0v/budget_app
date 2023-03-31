@@ -46,3 +46,9 @@ class Comment:
             comments.append( this_comment)
             print(this_comment)
         return comments
+
+
+    @classmethod
+    def delete_comment(cls,data):
+        pass
+    
