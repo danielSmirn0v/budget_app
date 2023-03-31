@@ -92,8 +92,7 @@ def update_user(id):
     if 'user_info' not in session:
         return redirect('/')
 
-    if users.User.validate_update_user(request.form):
-        return redirect(f'/user/{id}/update')
+#firgue out validation
 
     data={
             "id":id,

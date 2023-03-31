@@ -44,7 +44,7 @@ def updateSubBill(id):
 
 @app.route("/expenses/edit/<int:id>/sub" ,methods = ['POST'])
 def updatesubBill(id):
-
+#firgure out validation on all things that need it lol
     data = {
         'id' : id,
         'sub_bill_name' : request.form['sub_bill_name'],
