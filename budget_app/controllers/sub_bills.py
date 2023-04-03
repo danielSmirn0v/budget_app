@@ -22,7 +22,8 @@ def create_sub_bill():
     data = {
         'sub_bill_name' : request.form['sub_bill_name'],
         'amount' : request.form['amount'],
-        'main_bill_id' : request.form['main_bill_id']
+        'main_bill_id' : request.form['main_bill_id'],
+        'paid': 0
     }
     new_b = sub_bills.Sub_bills.save(data)
     print(f'this is the new bill{new_b}')
@@ -51,8 +52,17 @@ def updatesubBill(id):
         'id' : id,
         'sub_bill_name' : request.form['sub_bill_name'],
         'amount' : request.form['amount'],
-        'main_bill_id' : request.form['main_bill_id']
+        'main_bill_id' : request.form['main_bill_id'],
+        'paid': request.form['paid']
     }
     sub_bills.Sub_bills.update_sub_bill(data)
 
+    return redirect('/dashboard')
+
+@app.route("/sub_bill/pay/<int:id>")
+def payBill(id):
+    data ={
+        "id" :id,
+                }
+    sub_bills.Sub_bills.payBill(data)
     return redirect('/dashboard')

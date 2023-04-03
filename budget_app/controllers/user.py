@@ -72,8 +72,11 @@ def dash():
         # expense = main_bills.Main_bill.get_all_from_id({'id' : session['user_info']})
         id =budget.Budget.get_budgets_by_user_id({'id' : session['user_info']})
         expense = budget.Budget.get_main_bills_by_budget_id({"id" :id})
+        other_budgets = budget.Budget.get_assosiated_budgets({"id":session['user_info']})
         all_comments = comment.Comment.get_all()
-        return render_template("home.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}), comments = all_comments)
+        all_users =users.User.show_all()
+        print(other_budgets)
+        return render_template("home.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}), comments = all_comments, all_users =all_users, other_budgets= other_budgets)
 
 @app.route('/user/<int:id>/update')
 def update_user_page(id):
@@ -112,3 +115,14 @@ def update_user(id):
 def logout():
     session.clear()
     return redirect('/')
+
+@app.route("/add/user/<int:id>", methods=['post'])
+def addUser(id):
+    name =request.form['other_user'].split()
+    data = {"id": id,
+            "first_name":name[0],
+            "last_name":name[1],
+            }
+    print(data)
+    users.User.addRelationship(data)
+    return redirect('/dashboard')

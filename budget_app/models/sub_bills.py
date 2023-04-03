@@ -15,7 +15,7 @@ class Sub_bills:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.main_bill_id = data['main_bill_id']
-
+        self.paid = data['paid']
 
 
     @classmethod 
@@ -77,5 +77,11 @@ class Sub_bills:
             return cls(result[0])
         return False
         
+
+    @classmethod
+    def payBill(cls,data):
+        query = "UPDATE sub_bills Set paid =1 WHERE id = %(id)s"
+        result  = connectToMySQL(cls.db).query_db(query,data)
+        return result
 
 
