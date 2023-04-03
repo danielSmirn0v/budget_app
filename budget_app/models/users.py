@@ -72,6 +72,22 @@ class User:
         query = 'DELETE FROM users WHERE id = %(id)s'
         result  = connectToMySQL(cls.db).query_db(query,data)
         return result
+    
+    @classmethod
+    def addRelationship(cls,data):
+        query ="""SELECT *
+                FROM users
+                WHERE
+                first_name LIKE %(first_name)s AND last_name LIKE %(last_name)s;"""
+        result = connectToMySQL(cls.db).query_db(query,data)
+        print(result)
+        data2 ={
+            "budget_id" : data['id'],
+            "user_id": result[0]['id']
+        }
+        query2 ="INSERT INTO users_budgets (user_id , budget_id) VALUES (%(user_id)s ,%(budget_id)s)"
+        result2 = connectToMySQL(cls.db).query_db(query2,data2)
+        print(result2)
 
     @staticmethod
     def validate(user):

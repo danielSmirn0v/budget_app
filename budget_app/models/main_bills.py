@@ -79,7 +79,8 @@ class Main_bill:
                 "amount" : i["amount"],
                 "created_at" : i['created_at'],
                 'updated_at' :i['updated_at'],
-                "main_bill_id" :['main_bill_id']
+                "main_bill_id" :i['main_bill_id'],
+                "paid":i['paid']
             }
             sub_bill = sub_bills.Sub_bills(data)
             
