@@ -22,16 +22,17 @@
         <p class="title2">Welcome {{use.first_name}} Lets Budget!!</p>
         <a class="logout" href="/logout">Log Out</a>
         <a class="logout" href="/user/{{use.id}}/update">update your info</a>
+        <a class="create1" href="/check/friends">check friends</a>
         <div>
-            <a class="create1" href="/expenses/newbill">+ Add Group</a>
             <div class="input-group mb-3">
                 <form action = "/add/user/{{expense.id}}" method="post">
-                <div class="input-group-prepend">
-                    <span class="form-control" id="basic-addon1">Find User</span>
+                    <div class="input-group-prepend">
+                        <span class="form-control" id="basic-addon1">Find User</span>
+                    </div>
+                    <input type="text" id="tags" name = "other_user">
+                    <button>Add user</button>
                 </div>
-                <input type="text" id="tags" name = "other_user">
-                <button>Add user</button>
-            </div>
+            <a class="create1" href="/expenses/newbill">+ Add Group</a>
         </form>
         </div>
 
@@ -80,16 +81,17 @@
                     {%endif%}
                 {%endfor%}
                 </textarea>
+                <button> <a href="/clear/{{i.id}}/comment">clear</a> </button>
                 </div>
             </div>
         </div>
 </div>
+        {%endfor%}
 
-{%endfor%}
 
 {%for budget in other_budgets %}
 {% for i in budget.main_bills %}
-<button class="accordion title3">{{i.bill_type}} <a class="create2" href="/expenses/{{i.id}}/new_sub_bill"> Add
+<button class="accordion title3">{{i.bill_type}} by {{budget.main_bills[0].creater.first_name}} <a class="create2" href="/expenses/{{i.id}}/new_sub_bill"> Add
         Subgroup</a>
     <a class="create2" href="/expenses/{{i.id}}/bill">Delete bill</a> </button>
 <div class="panel corner">
@@ -137,8 +139,9 @@
 </div>
 </div>
 {%endfor%}
-
 {%endfor%}
+
+
 
 
 
@@ -170,9 +173,9 @@
         {% endfor %}
     ];
     $( "#tags" ).autocomplete({
-      source: availableTags
+    source: availableTags
     });
-  } );
+} );
 </script>
 </body>
 

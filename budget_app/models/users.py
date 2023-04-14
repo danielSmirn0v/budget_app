@@ -20,6 +20,7 @@ class User:
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.creater = None
         self.friends = []
 
 
@@ -59,6 +60,31 @@ class User:
         if result:
             return cls(result[0])
         return False
+    
+    @classmethod
+    def get_friends(cls,data):
+        query = """SELECT * FROM users
+                    LEFT JOIN users_budgets ON users_budgets.user_id = users.id 
+                    LEFT JOIN budget ON budget.id = users_budgets.budget_id 
+                    WHERE budget.user_id = %(id)s"""
+        result  = connectToMySQL(cls.db).query_db(query,data)
+        if not result:
+            return []
+        else:
+            friends = []
+            for row in result:
+                user_data = {
+                    "id": row['id'],
+                    "first_name": row['first_name'],
+                    "last_name": row['last_name'],
+                    "email": row['email'],
+                    "password": "",
+                    "created_at": row['created_at'],
+                    "updated_at": row['updated_at']
+                }
+                friend = User(user_data)
+                friends.append(friend)
+            return friends
 
 
     @classmethod
@@ -72,7 +98,7 @@ class User:
         query = 'DELETE FROM users WHERE id = %(id)s'
         result  = connectToMySQL(cls.db).query_db(query,data)
         return result
-    
+    ##this relaitonship is bringing up weird results
     @classmethod
     def addRelationship(cls,data):
         query ="""SELECT *
@@ -80,14 +106,14 @@ class User:
                 WHERE
                 first_name LIKE %(first_name)s AND last_name LIKE %(last_name)s;"""
         result = connectToMySQL(cls.db).query_db(query,data)
-        print(result)
+        print(f'{result}=====')
         data2 ={
             "budget_id" : data['id'],
             "user_id": result[0]['id']
         }
         query2 ="INSERT INTO users_budgets (user_id , budget_id) VALUES (%(user_id)s ,%(budget_id)s)"
         result2 = connectToMySQL(cls.db).query_db(query2,data2)
-        print(result2)
+        print(f'{result2}= = = = = = ')
 
     @staticmethod
     def validate(user):

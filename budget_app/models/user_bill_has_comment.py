@@ -30,7 +30,8 @@ class Bill_comment:
                 WHERE main_bills.id = %(id)s"""
         result = connectToMySQL(cls.db).query_db(query, data)
         return result
-        
+
+
 
     @staticmethod
     def validate_comment(bill_comment):

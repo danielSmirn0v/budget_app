@@ -67,16 +67,18 @@ def register():
 
 @app.route("/dashboard")
 def dash():
-    if 'user_info' in session:
-        current_user = session['user_info']
-        # expense = main_bills.Main_bill.get_all_from_id({'id' : session['user_info']})
-        id =budget.Budget.get_budgets_by_user_id({'id' : session['user_info']})
-        expense = budget.Budget.get_main_bills_by_budget_id({"id" :id})
-        other_budgets = budget.Budget.get_assosiated_budgets({"id":session['user_info']})
-        all_comments = comment.Comment.get_all()
-        all_users =users.User.show_all()
-        print(other_budgets)
-        return render_template("home.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}), comments = all_comments, all_users =all_users, other_budgets= other_budgets)
+    if 'user_info' not in session:
+        return redirect('/')
+
+    current_user = session['user_info']
+    # expense = main_bills.Main_bill.get_all_from_id({'id' : session['user_info']})
+    id = budget.Budget.get_budgets_by_user_id({'id' : session['user_info']})
+    expense = budget.Budget.get_main_bills_by_budget_id({"id" :id})
+    other_budgets = budget.Budget.get_associated_budgets({"id":session['user_info']})
+    all_comments = comment.Comment.get_all()
+    all_users =users.User.show_all()
+    print(f'{other_budgets}==== !+!!== this is other_budgets')
+    return render_template("home.html", user = current_user, expense = expense, use = users.User.get_one_by_id({'id': session['user_info']}), comments = all_comments, all_users =all_users, other_budgets= other_budgets)
 
 @app.route('/user/<int:id>/update')
 def update_user_page(id):
@@ -109,15 +111,21 @@ def update_user(id):
     print(f'ththth {data}')
     return redirect('/dashboard')
 
+@app.route('/check/friends')
+def check_friends():
+    if 'user_info' not in session:
+        return redirect('/')
+
+    gf = users.User.get_friends({'id': session['user_info']})
+
+    return render_template('friends_list.html', gf = gf)
 
 
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect('/')
 
 @app.route("/add/user/<int:id>", methods=['post'])
 def addUser(id):
+    if 'user_info' not in session:
+        return redirect('/')
     name =request.form['other_user'].split()
     data = {"id": id,
             "first_name":name[0],
@@ -126,3 +134,9 @@ def addUser(id):
     print(data)
     users.User.addRelationship(data)
     return redirect('/dashboard')
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')

@@ -16,3 +16,12 @@ def postComment():
         return redirect('/dashboard')
     return redirect('/dashboard')
 
+@app.route('/clear/<int:id>/comment')
+def comment_clear(id):
+    data ={
+    "id" :id,
+            }
+    print(f'this is delete id {id}              ')
+    comment.Comment.clear_comment(data)
+    return redirect('/dashboard')
+

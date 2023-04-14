@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>check friends</title>
+</head>
+
+<body class="body3">
+    <div class="flex-container">
+        <div>
+            <a class="logout" href="/dashboard">Back to Home</a>
+            <a class="logout" href="/logout">Log Out</a>
+        </div>
+        <h1 class="title4">these are your friends</h1>
+    </div>
+    {% for f in gf%}
+    <button class="accordion title3">{{f.first_name}} 
+    <a class="create2" href="">terminate friendship</a> </button><!--still did not work on this function-->
+
+    {% endfor %}
+
+</body>
+
+</html>
