@@ -29,7 +29,11 @@ class Comment:
         query ='''
         INSERT into user_bill_has_comment (comment, user_id, main_bill_id) Values(%(comment)s, %(user_id)s,%(main_bill_id)s)
         '''
-        return connectToMySQL(mydb).query_db( query, data )
+        results = connectToMySQL(mydb).query_db( query, data )
+        print('=======')
+        print(results)
+        return results
+
 
 
     @classmethod
@@ -47,6 +51,13 @@ class Comment:
             print(this_comment)
         return comments
 
+    @classmethod
+    def clear_comment(cls,data):
+        print('             ')
+        query = 'DELETE FROM user_bill_has_comment WHERE main_bill_id = %(id)s'
+        result = connectToMySQL(mydb).query_db(query, data)
+        print(f'th delete querty {result}=======')
+        return result
 
     @classmethod
     def delete_comment(cls,data):

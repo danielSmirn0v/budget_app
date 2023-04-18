@@ -31,24 +31,34 @@ class Main_bill:
         result = connectToMySQL(cls.db).query_db(query, data)
         print(result)
         return result
-    @classmethod
-    def get_all_from_id(cls,data):
-        query = """SELECT *
-                    FROM budget
-                    LEFT JOIN users
-                    ON budget.user_id = users.id
-                    LEFT JOIN main_bills
-                    ON main_bills.budget_main_bills_id = budget.id
-                    LEFT JOIN sub_bills
-                    ON sub_bills.main_bill_id = main_bills.id
-                    WHERE users.id = %(id)s;"""
-        result = connectToMySQL(cls.db).query_db(query,data)
-        bill_id=[]
-        for d in result:
-            bill_id.append(d['main_bills.id'])##this parses through results and gets all the main_bills.id and appends to the bill_id list which is called in flask for the conditoinal
-        print(f'==== {bill_id}')
-        return result
 
+    @classmethod
+    def get_all_main_bills_with_creater(cls, data):
+        query = """
+            SELECT *
+            FROM budget
+            LEFT JOIN users ON budget.user_id = users.id
+            LEFT JOIN main_bills ON main_bills.budget_main_bills_id = budget.id
+            LEFT JOIN sub_bills ON sub_bills.main_bill_id = main_bills.id
+            WHERE budget.user_id = %(id)s;
+        """
+        result = connectToMySQL(cls.db).query_db(query, data)
+        if result:
+            row = result[0]
+            this_creater = cls(row)
+            user_data = {
+                "id": row['users.id'],
+                "first_name": row['first_name'],
+                "last_name": row['last_name'],
+                "email": row['email'],
+                "password": "",
+                "created_at": row['users.created_at'],
+                "updated_at": row['users.updated_at']
+            }
+            this_creater.creater = users.User(user_data)
+            return this_creater
+        else:
+            return []
 
     @classmethod
     def update_budget(cls,data):
